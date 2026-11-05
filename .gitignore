@@ -1,0 +1,4 @@
+*.o
+*.out
+test_member1
+.DS_Store
