@@ -1,4 +1,5 @@
-
+#include <climits>
+#include <stdexcept>
 #include "Wallet.h"
 #include "Transaction.h"
 
@@ -56,6 +57,16 @@ int main() {
     cout << "\nAfter removing confirmed transaction:";
     cout << "\nPending transactions: "
          << pool.getPendingTransactions().size() << endl;
+
+     cout << "\nTest 7: Wallet overflow protection\n";
+     Wallet testWallet(LLONG_MAX);
+     try {
+     testWallet.receive(1);
+     cout << "FAIL\n";
+     }
+     catch (const overflow_error& e) {
+     cout << "PASS: " << e.what() << endl;
+     }
 
     return 0;
 }

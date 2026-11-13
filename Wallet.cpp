@@ -1,6 +1,6 @@
-
 #include "Wallet.h"
 #include <stdexcept>
+#include <climits>
 
 int Wallet::walletCount = 0;
 
@@ -36,7 +36,11 @@ bool Wallet::deduct(long long amount) {
 }
 
 void Wallet::receive(long long amount) {
-    if (amount > 0) {
-        balance += amount;
+    if (amount <= 0) {
+        return;
     }
+    if (balance > LLONG_MAX - amount) {
+        throw overflow_error("Wallet balance overflow");
+    }
+    balance += amount;
 }
